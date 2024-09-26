@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readiness Canvas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Readiness Canvas</h1>
+        <p>Review each product category to explore the Departmental requirements.</p>
+    </header>
+
+    <section id="category-buttons">
+        <h2>Product categories</h2>
+        <div id="categories-container">
+            <!-- Buttons will be injected here by JavaScript -->
+        </div>
+    </section>
+
+    <section id="questions-section" style="display:none;">
+        <h2>About my product</h2>
+        <div id="questions-container">
+            <!-- Questions will be injected here by JavaScript -->
+        </div>
+    </section>
+
+    <section id="nfrs-section" style="display:none;">
+        <h2>Requirement considerations</h2>
+        <button id="download-button">Download list</button>
+        <ul id="nfrs-list">
+            <!-- NFRs will be listed here -->
+        </ul>
+    </section>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
