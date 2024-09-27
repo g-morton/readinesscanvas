@@ -5,18 +5,38 @@ const questionsContainer = document.getElementById('questions-container');
 const nfrsSection = document.getElementById('nfrs-section');
 const nfrsList = document.getElementById('nfrs-list');
 
+// Toggle selected state of a category button and show questions for that category
+function toggleCategoryButton(button, category) {
+    // If allowing multiple categories to be selected, this block can be omitted.
+    // Only allow one selected category at a time
+    Array.from(categoriesContainer.children).forEach(btn => btn.classList.remove('selected'));
+
+    // Toggle the selected state
+    button.classList.toggle('selected');
+
+    // Show questions based on the selected state
+    if (button.classList.contains('selected')) {
+        showQuestions(category.subCategories);
+    } else {
+        questionsSection.style.display = 'none';  // Hide questions if deselected
+    }
+}
+
 // Populate categories
 categories.forEach(category => {
     const button = document.createElement('button');
     button.className = 'category-button';
     button.textContent = category.category;
-    button.onclick = () => showQuestions(category.subCategories);
+
+    button.onclick = () => toggleCategoryButton(button, category);
+    
     categoriesContainer.appendChild(button);
 });
 
 // Show questions for selected category
 function showQuestions(subCategories) {
     questionsContainer.innerHTML = ''; // Clear existing questions
+
     subCategories.forEach(subCategory => {
         if (questions[subCategory]) {
             questions[subCategory].forEach(questionObj => {
@@ -28,9 +48,11 @@ function showQuestions(subCategories) {
             });
         }
     });
+
     questionsSection.style.display = 'block'; // Show questions section
 }
 
+// Toggle NFRs when a question is selected/deselected
 function toggleNFR(subCategory, button) {
     button.classList.toggle('selected');
     const selected = button.classList.contains('selected');
@@ -67,21 +89,7 @@ function toggleNFR(subCategory, button) {
         nfrsList.appendChild(li);
     });
 
-    // Toggle NFR section visibility
+    // Toggle NFR section visibility and show the download button if there are NFRs
     nfrsSection.style.display = nfrsList.children.length > 0 ? 'block' : 'none';
+    document.getElementById('download-button').style.display = nfrsList.children.length > 0 ? 'inline-block' : 'none';
 }
-
-
-function downloadNFRs() {
-    let nfrText = Array.from(nfrsList.children).map(li => li.textContent).join('\n');
-    
-    // Create a Blob with the NFR text content
-    let blob = new Blob([nfrText], { type: 'text/plain' });
-    let link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Requirement_Considerations.txt'; // File name
-    link.click();
-}
-
-// Attach the download function to the button
-document.getElementById('download-button').addEventListener('click', downloadNFRs);
