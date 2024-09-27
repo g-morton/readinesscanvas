@@ -110,7 +110,28 @@ function toggleNFR(subCategory, button) {
         });
     }
 
-    // Sort and toggle NFR section visibility
+    // Sort and reorder NFRs to ensure MUST items appear first
+    sortNfrList();
+
+    // Toggle NFR section visibility
     nfrsSection.style.display = nfrsList.children.length > 0 ? 'block' : 'none';
     document.getElementById('download-button').style.display = nfrsList.children.length > 0 ? 'inline-block' : 'none';
 }
+
+// Sorting function to reorder NFRs: MUST first, then Optional
+function sortNfrList() {
+    // Get all NFRs as an array of elements
+    const items = Array.from(nfrsList.children);
+
+    // Sort the items by status (MUST first, then SHOULD)
+    items.sort((a, b) => {
+        const statusA = a.querySelector('i').classList.contains('fa-triangle-exclamation') ? "M" : "S";
+        const statusB = b.querySelector('i').classList.contains('fa-triangle-exclamation') ? "M" : "S";
+        return statusA === "M" && statusB === "S" ? -1 : statusA === "S" && statusB === "M" ? 1 : 0;
+    });
+
+    // Clear the NFR list and append the sorted items
+    nfrsList.innerHTML = '';
+    items.forEach(item => nfrsList.appendChild(item));
+}
+
