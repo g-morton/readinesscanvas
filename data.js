@@ -65,10 +65,10 @@ const categories = [
 
 const questions = {
     "Retention (01)": [
-        { "question": "Will user data be stored over time?", "subCategory": "Retention (01)" }
+        { "question": "User data will be stored over time", "subCategory": "Retention (01)" }
     ],
     "Disposal (02)": [
-        { "question": "Users can choose to exit the product", "subCategory": "Disposal (02)" }
+        { "question": "Users can choose to leave the product", "subCategory": "Disposal (02)" }
     ],
     "Records Management (03)": [
         { "question": "The product will store complex information", "subCategory": "Records Management (03)" }
@@ -80,7 +80,7 @@ const questions = {
         { "question": "The product will support different personas", "subCategory": "Access Control (02)" }
     ],
     "Data Encryption (08)": [
-        { "question": "Some stored information should be secured", "subCategory": "Data Encryption (08)" }
+        { "question": "Some stored information could be sensitive", "subCategory": "Data Encryption (08)" }
     ],
     "Incident Response (07)": [
         { "question": "The product must not be used maliciously", "subCategory": "Incident Response (07)" }
@@ -92,7 +92,7 @@ const questions = {
         { "question": "Users can sign in to the product", "subCategory": "Identification and Authentication (01)" }
     ],
     "System Entry Control (09)": [
-        { "question": "The product has a members area", "subCategory": "System Entry Control (09)" }
+        { "question": "The product has a membership area", "subCategory": "System Entry Control (09)" }
     ],
     "Auditability (03)": [
         { "question": "User activity should be logged", "subCategory": "Auditability (03)" }
@@ -140,7 +140,7 @@ const questions = {
         { "question": "Personal information will be stored", "subCategory": "Data Protection (02)" }
     ],
     "Consent Management (01)": [
-        { "question": "We will ask users to provide information about themselves", "subCategory": "Consent Management (01)" }
+        { "question": "Users will be asked to provide information about themselves", "subCategory": "Consent Management (01)" }
     ]
 };
 
