@@ -28,8 +28,25 @@ h1 {
     height: 32px;
     line-height: 28px;
     border-radius: 16px;
-    background-color: #f1f1f1;
+    background-color: #F5F6F8;
+    color: black;
     border: 2px solid #fff;
+}
+
+button.category-button:hover, button.question-button:hover {
+    background-color: #565960;
+    color: white;
+    text-decoration: underline;
+}
+
+button.category-button.selected {
+    background-color: rgb(0, 117, 226);
+    color: white;
+}
+
+button.question-button.selected {
+    background-color: rgb(0, 102, 41);
+    color: white;
 }
 
 
@@ -43,24 +60,6 @@ h1 {
     gap: 10px;
 }
 
-button.category-button {
-    background-color: #007bff;
-    color: white;
-}
-
-button.category-button:hover {
-    background-color: #0056b3;
-}
-
-button.question-button {
-    background-color: #17a2b8;
-    color: white;
-    cursor: pointer;
-}
-
-button.question-button.selected {
-    background-color: #28a745;
-}
 
 #nfrs-list {
     list-style-type: none;
