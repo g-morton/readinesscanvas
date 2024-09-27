@@ -58,38 +58,52 @@ function toggleNFR(subCategory, button) {
     const selected = button.classList.contains('selected');
     
     // Retrieve the current list of NFRs (existing + new ones to be added)
-    let currentNfrs = Array.from(nfrsList.children).map(li => li.textContent);
+    let currentNfrs = Array.from(nfrsList.children).map(li => li.dataset.nfrId);
 
     if (selected) {
         // Add the new NFRs to the current list
         if (nfrs[subCategory]) {
             nfrs[subCategory].forEach(nfr => {
-                if (!currentNfrs.includes(nfr)) {
-                    currentNfrs.push(nfr);  // Only add if not already present
+                if (!currentNfrs.includes(nfr.id)) {
+                    currentNfrs.push(nfr.id);  // Only add if not already present
+
+                    // Create an LI element to hold the NFR
+                    const li = document.createElement('li');
+                    li.dataset.nfrId = nfr.id;  // Store the NFR ID as a data attribute
+                    
+                    // Create individual span elements for each part
+                    const statusSpan = document.createElement('span');
+                    statusSpan.textContent = nfr.status === "M" ? "M" : "S";  // M for Must, S for Should
+                    
+                    const idSpan = document.createElement('span');
+                    idSpan.textContent = `[${nfr.id}] `;
+                    idSpan.style.fontWeight = 'bold';  // Make the ID bold
+
+                    const labelSpan = document.createElement('span');
+                    labelSpan.textContent = nfr.label;
+
+                    // Append each part to the LI element
+                    li.appendChild(statusSpan);
+                    li.appendChild(idSpan);
+                    li.appendChild(labelSpan);
+
+                    // Add the LI element to the NFR list
+                    nfrsList.appendChild(li);
                 }
             });
         }
     } else {
         // Remove deselected NFRs from the current list
-        if (nfrs[subCategory]) {
-            currentNfrs = currentNfrs.filter(nfr => !nfrs[subCategory].includes(nfr));
-        }
+        currentNfrs = currentNfrs.filter(id => !nfrs[subCategory].some(nfr => nfr.id === id));
+        Array.from(nfrsList.children).forEach(li => {
+            if (nfrs[subCategory].some(nfr => nfr.id === li.dataset.nfrId)) {
+                nfrsList.removeChild(li);
+            }
+        });
     }
 
-    // Sort the NFRs: 'MUST' items first
-    let mustItems = currentNfrs.filter(nfr => nfr.includes('MUST'));
-    let otherItems = currentNfrs.filter(nfr => !nfr.includes('MUST'));
-    let sortedNfrs = [...mustItems, ...otherItems];  // 'MUST' first
-
-    // Clear the list and repopulate it with the sorted NFRs
-    nfrsList.innerHTML = '';
-    sortedNfrs.forEach(nfr => {
-        const li = document.createElement('li');
-        li.textContent = nfr;
-        nfrsList.appendChild(li);
-    });
-
-    // Toggle NFR section visibility and show the download button if there are NFRs
+    // Sort and toggle NFR section visibility
     nfrsSection.style.display = nfrsList.children.length > 0 ? 'block' : 'none';
     document.getElementById('download-button').style.display = nfrsList.children.length > 0 ? 'inline-block' : 'none';
 }
+
