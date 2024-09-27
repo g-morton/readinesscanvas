@@ -70,20 +70,28 @@ function toggleNFR(subCategory, button) {
                     // Create an LI element to hold the NFR
                     const li = document.createElement('li');
                     li.dataset.nfrId = nfr.id;  // Store the NFR ID as a data attribute
-                    
-                    // Create individual span elements for each part
-                    const statusSpan = document.createElement('span');
-                    statusSpan.textContent = nfr.status === "M" ? "M" : "S";  // M for Must, S for Should
-                    
-                    const idSpan = document.createElement('span');
-                    idSpan.textContent = `[${nfr.id}] `;
-                    idSpan.style.fontWeight = 'bold';  // Make the ID bold
 
+                    // Create the icon element
+                    const icon = document.createElement('i');
+                    if (nfr.status === "M") {
+                        icon.className = "fa-solid fa-triangle-exclamation";
+                        icon.style.color = "red";
+                    } else if (nfr.status === "S") {
+                        icon.className = "fa-solid fa-thumbs-up";
+                        icon.style.color = "orange";
+                    }
+                    
+                    // Create the NFR ID chip element
+                    const idSpan = document.createElement('span');
+                    idSpan.textContent = nfr.id;
+                    idSpan.className = 'nfr-chip';  // Add a class for the chip styling
+
+                    // Create the NFR label element
                     const labelSpan = document.createElement('span');
                     labelSpan.textContent = nfr.label;
 
-                    // Append each part to the LI element
-                    li.appendChild(statusSpan);
+                    // Append icon, chip, and label to the LI element
+                    li.appendChild(icon);
                     li.appendChild(idSpan);
                     li.appendChild(labelSpan);
 
@@ -106,4 +114,3 @@ function toggleNFR(subCategory, button) {
     nfrsSection.style.display = nfrsList.children.length > 0 ? 'block' : 'none';
     document.getElementById('download-button').style.display = nfrsList.children.length > 0 ? 'inline-block' : 'none';
 }
-
