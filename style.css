@@ -17,7 +17,7 @@ h1 {
 }
 
 
-.tag {
+.category-button, .question-button {
     text-align: center;
     float: left;
     font-size: 12px;
@@ -46,11 +46,6 @@ h1 {
 button.category-button {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
 }
 
 button.category-button:hover {
@@ -60,9 +55,6 @@ button.category-button:hover {
 button.question-button {
     background-color: #17a2b8;
     color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
